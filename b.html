@@ -1,0 +1,76 @@
+<html><head>
+<meta http-equiv="Content-Type" content="text/html; charset=Shift_JIS">
+<title>ClockChord - Musical chord instrument on the circle-of-fifths clock in JavaScript</title>
+<style type="text/css">
+	h1,h2,h3 { color:#FF6633; background-color:#FFFF99; }
+	#octave,#volume { width: 300px; }
+	#pianokeyboard {
+		width: 100%; height: 140px;
+		background-color:#808080;
+		overflow-x: auto;
+		position: relative;
+		-webkit-overflow-scrolling: touch;		
+	}
+	.whitekey,.blackkey { border: 1px black solid; position: absolute; }
+	.whitekey { background-color: white; width: 30px; height: 120px; }
+	.blackkey { background-color: black; width: 20px; height: 80px; z-index: 1; }
+	.pressed { background-color: orange; }
+	.released { background-color: yellow; }
+	#chord { font-size: 150%; }
+	.nonchord { color: #C0C0C0; }
+	#circleOfFifthsClockCanvas,#button_container { touch-action: manipulation; }
+	#button_container .button { font-size: 200%; }
+</style>
+</head>
+<body bgcolor="white">
+<h1>五度圏時計楽器 ClockChord</h1>
+<p>Musical chord instrument on the circle-of-fifths clock - 楽器として使える<a href="../theory/#CircleOf5ths">五度圏</a>時計</p>
+<p>Click or touch the clock dial to sound chord - 時計の文字盤をクリックまたはタッチするとコードが鳴ります</p>
+<hr>
+<div>
+ Volume <input id="volume" type="range" min="0" max="0.3" step="0.005">
+ <br>
+ <canvas id="circleOfFifthsClockCanvas" width="400px" height="400px">HTML5 canvas not supported</canvas>
+ <br><br>
+ 
+ <br>
+ Octave <input id="octave" type="range" min="0" max="116" step="1">
+ <br><br>
+ <div id="chord"><span class="nonchord">[Chord]</span></div>
+ <div id="pianokeyboard" tabindex="0"><div class="whitekey" style="left: 0px;"></div><div class="blackkey" style="left: 17.3333px;"></div><div class="whitekey" style="left: 32px;"></div><div class="blackkey" style="left: 56.6667px;"></div><div class="whitekey" style="left: 64px;"></div><div class="whitekey" style="left: 96px;"></div><div class="blackkey" style="left: 111.5px;"></div><div class="whitekey" style="left: 128px;"></div><div class="blackkey" style="left: 149px;"></div><div class="whitekey" style="left: 160px;"></div><div class="blackkey" style="left: 186.5px;"></div><div class="whitekey" style="left: 192px;"></div><div class="whitekey" style="left: 224px;"></div><div class="blackkey" style="left: 241.333px;"></div><div class="whitekey" style="left: 256px;"></div><div class="blackkey" style="left: 280.667px;"></div><div class="whitekey" style="left: 288px;"></div><div class="whitekey" style="left: 320px;"></div><div class="blackkey" style="left: 335.5px;"></div><div class="whitekey" style="left: 352px;"></div><div class="blackkey" style="left: 373px;"></div><div class="whitekey" style="left: 384px;"></div><div class="blackkey" style="left: 410.5px;"></div><div class="whitekey" style="left: 416px;"></div><div class="whitekey" style="left: 448px;"></div><div class="blackkey" style="left: 465.333px;"></div><div class="whitekey" style="left: 480px;"></div><div class="blackkey" style="left: 504.667px;"></div><div class="whitekey" style="left: 512px;"></div><div class="whitekey" style="left: 544px;"></div><div class="blackkey" style="left: 559.5px;"></div><div class="whitekey" style="left: 576px;"></div><div class="blackkey" style="left: 597px;"></div><div class="whitekey" style="left: 608px;"></div><div class="blackkey" style="left: 634.5px;"></div><div class="whitekey" style="left: 640px;"></div><div class="whitekey" style="left: 672px;"></div><div class="blackkey" style="left: 689.333px;"></div><div class="whitekey" style="left: 704px;"></div><div class="blackkey" style="left: 728.667px;"></div><div class="whitekey" style="left: 736px;"></div><div class="whitekey" style="left: 768px;"></div><div class="blackkey" style="left: 783.5px;"></div><div class="whitekey" style="left: 800px;"></div><div class="blackkey" style="left: 821px;"></div><div class="whitekey" style="left: 832px;"></div><div class="blackkey" style="left: 858.5px;"></div><div class="whitekey" style="left: 864px;"></div><div class="whitekey" style="left: 896px;"></div><div class="blackkey" style="left: 913.333px;"></div><div class="whitekey" style="left: 928px;"></div><div class="blackkey" style="left: 952.667px;"></div><div class="whitekey" style="left: 960px;"></div><div class="whitekey" style="left: 992px;"></div><div class="blackkey" style="left: 1007.5px;"></div><div class="whitekey" style="left: 1024px;"></div><div class="blackkey" style="left: 1045px;"></div><div class="whitekey" style="left: 1056px;"></div><div class="blackkey" style="left: 1082.5px;"></div><div class="whitekey" style="left: 1088px;"></div><div class="whitekey" style="left: 1120px;"></div><div class="blackkey" style="left: 1137.33px;"></div><div class="whitekey pressed" style="left: 1152px;"></div><div class="blackkey" style="left: 1176.67px;"></div><div class="whitekey" style="left: 1184px;"></div><div class="whitekey" style="left: 1216px;"></div><div class="blackkey" style="left: 1231.5px;"></div><div class="whitekey" style="left: 1248px;"></div><div class="blackkey" style="left: 1269px;"></div><div class="whitekey" style="left: 1280px;"></div><div class="blackkey" style="left: 1306.5px;"></div><div class="whitekey" style="left: 1312px;"></div><div class="whitekey" style="left: 1344px;"></div><div class="blackkey" style="left: 1361.33px;"></div><div class="whitekey" style="left: 1376px;"></div><div class="blackkey" style="left: 1400.67px;"></div><div class="whitekey" style="left: 1408px;"></div><div class="whitekey" style="left: 1440px;"></div><div class="blackkey" style="left: 1455.5px;"></div><div class="whitekey" style="left: 1472px;"></div><div class="blackkey" style="left: 1493px;"></div><div class="whitekey" style="left: 1504px;"></div><div class="blackkey" style="left: 1530.5px;"></div><div class="whitekey" style="left: 1536px;"></div><div class="whitekey" style="left: 1568px;"></div><div class="blackkey" style="left: 1585.33px;"></div><div class="whitekey" style="left: 1600px;"></div><div class="blackkey" style="left: 1624.67px;"></div><div class="whitekey" style="left: 1632px;"></div><div class="whitekey" style="left: 1664px;"></div><div class="blackkey" style="left: 1679.5px;"></div><div class="whitekey" style="left: 1696px;"></div><div class="blackkey" style="left: 1717px;"></div><div class="whitekey" style="left: 1728px;"></div><div class="blackkey" style="left: 1754.5px;"></div><div class="whitekey" style="left: 1760px;"></div><div class="whitekey" style="left: 1792px;"></div><div class="blackkey" style="left: 1809.33px;"></div><div class="whitekey" style="left: 1824px;"></div><div class="blackkey" style="left: 1848.67px;"></div><div class="whitekey" style="left: 1856px;"></div><div class="whitekey" style="left: 1888px;"></div><div class="blackkey" style="left: 1903.5px;"></div><div class="whitekey" style="left: 1920px;"></div><div class="blackkey" style="left: 1941px;"></div><div class="whitekey" style="left: 1952px;"></div><div class="blackkey" style="left: 1978.5px;"></div><div class="whitekey" style="left: 1984px;"></div><div class="whitekey" style="left: 2016px;"></div><div class="blackkey" style="left: 2033.33px;"></div><div class="whitekey" style="left: 2048px;"></div><div class="blackkey" style="left: 2072.67px;"></div><div class="whitekey" style="left: 2080px;"></div><div class="whitekey" style="left: 2112px;"></div><div class="blackkey" style="left: 2127.5px;"></div><div class="whitekey" style="left: 2144px;"></div><div class="blackkey" style="left: 2165px;"></div><div class="whitekey" style="left: 2176px;"></div><div class="blackkey" style="left: 2202.5px;"></div><div class="whitekey" style="left: 2208px;"></div><div class="whitekey" style="left: 2240px;"></div><div class="blackkey" style="left: 2257.33px;"></div><div class="whitekey" style="left: 2272px;"></div><div class="blackkey" style="left: 2296.67px;"></div><div class="whitekey" style="left: 2304px;"></div><div class="whitekey" style="left: 2336px;"></div><div class="blackkey" style="left: 2351.5px;"></div><div class="whitekey" style="left: 2368px;"></div></div>
+ <br>
+ Wave <select id="waveselect">
+   <option>sine</option>
+   <option>square</option>
+   <option selected="">sawtooth</option>
+   <option>triangle</option>
+ </select>
+ <br>
+ <br>
+ <script src="./circle_of_5ths_clock_chord.js"></script>
+ <script>const clock = new CircleOfFifthsClock(); clock.listen();</script>
+</div>
+<hr>
+<h2>操作方法（Operation）</h2>
+<p>シフト系のキーや右クリックを組み合わせることで、幅広い種類のコードを鳴らすことができます。</p>
+<h3>For PC</h3>
+<p><a href="../chordhelper/" target="_blank">MIDI Chord Helper</a>（<a href="../chordhelper/manual.html#chord_play" target="_blank">マニュアル：マウスでコードを鳴らす</a>）と同様、右クリック、Shift/Alt/Ctrlキーも使えます。
+鍵盤部分をクリックしてメロディを弾くこともできます。鍵盤部分にフォーカスを入れると、PCキーボードのQWERTYの行も効きます。</p>
+<h3>For smartphone, tablet PC</h3>
+文字盤の下にシフトボタンが現れ、<a href="../chordhelper/hardware/" target="_blank">電子楽器CAmiDion</a>（<a href="../chordhelper/hardware/button_operation_table.html" target="_blank">CAmiDionボタン操作表</a>）と同様に7th、-5、augなどをマルチタッチで鳴らせます。
+鍵盤部分をタップしてメロディを弾くこともできます。端末によってはレスポンスがよくないかも知れません。<p></p>
+<h2>動作環境（Tested Environment）</h2>
+<p>下記の環境で動作を確認できています。</p>
+<ul>
+<li>[Web Browser] Google Chrome</li>
+<li>[OS] Ubuntu Linux / Windows / Android</li>
+</ul>
+<hr>
+<p>
+[<a href="./circle_of_5ths_clock_chord.js" target="_blank">JavaScript source code</a>]
+[<a href="https://twitter.com/akiyoshi_kamide/status/1297353400309301248" target="_blank">Twitter thread</a>]
+[<a href="../../">Home</a>]
+</p>
+
+
+</body></html>
